@@ -26,6 +26,10 @@ package object cryptopals {
 
     def ^(that: Array[Byte]): Array[Byte] = xor(that)
 
+    def xor(b: Byte): Array[Byte] = bytes.map(_ xor b)
+
+    def ^(b: Byte): Array[Byte] = xor(b)
+
     private def byteArrayOp(that: Array[Byte], op: (Byte, Byte) => Byte): Array[Byte] = {
       require(bytes.length == that.length, "arrays must be the same size")
       bytes.toStream
