@@ -5,5 +5,6 @@ version := "1.0.0-SNAPSHOT"
 scalaVersion := "2.12.1"
 
 libraryDependencies ++= Seq(
+  "commons-codec" % "commons-codec" % "1.10",
   "org.scalatest" %% "scalatest" % "3.0.1" % Test
 )
