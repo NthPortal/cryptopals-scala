@@ -9,7 +9,7 @@ object Challenge3 extends Challenge {
     val bytes = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736".hexToBytes
 
     (('a' to 'z') ++ ('A' to 'Z'))
-      .toStream
+      .iterator
       .map(c => (c, bytes ^ c.toByte))
       .maxBy(t => scoreBytes(t._2))
       ._1
@@ -22,10 +22,11 @@ object Challenge3 extends Challenge {
   }
 
   private def scoreChars(chars: Array[Char]): Int = {
-    chars.toStream
+    chars.iterator
       .map({
-        case c if c.isLower => 2
-        case c if c.isUpper => 1
+        case c if c.isLower => 3
+        case c if c.isUpper => 2
+        case ' ' => 2
         case _ => 0
       })
       .sum
