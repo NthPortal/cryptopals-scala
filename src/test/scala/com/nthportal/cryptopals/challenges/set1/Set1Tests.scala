@@ -20,4 +20,9 @@ class Set1Tests extends FlatSpec with Matchers {
     res.hexString shouldBe "7b5a4215415d544115415d5015455447414c155c46155f4058455c5b523f"
     res.decodedString shouldBe "Now that the party is jumping\n"
   }
+
+  "Challenge 5" should "encrypt using repeating-key XOR" in {
+    Challenge5() shouldBe "0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272" +
+      "a282b2f20430a652e2c652a3124333a653e2b2027630c692b20283165286326302e27282f"
+  }
 }
