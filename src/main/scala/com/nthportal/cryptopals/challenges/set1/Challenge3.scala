@@ -4,14 +4,10 @@ package set1
 
 object Challenge3 extends Challenge {
 
-  override def apply(): ScoredChar = {
-    val bytes = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736".hexToBytes
+  override def apply(): ScoredString = {
+    val keyRange = (('a' to 'z') ++ ('A' to 'Z')).map(_.toByte)
+    val bytes = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
 
-    (('a' to 'z') ++ ('A' to 'Z'))
-      .iterator
-      .map(c => ScoredChar(c, scoreBytes(bytes ^ c.toByte)))
-      .maxBy(_.score)
+    findByteKey(bytes, keyRange).get
   }
-
-  private[set1] final case class ScoredChar(char: Char, score: Int)
 }

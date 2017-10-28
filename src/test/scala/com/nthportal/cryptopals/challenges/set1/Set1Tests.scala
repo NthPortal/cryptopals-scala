@@ -12,7 +12,9 @@ class Set1Tests extends FlatSpec with Matchers {
   }
 
   "Challenge 3" should "find the key" in {
-    Challenge3().char shouldBe 'X'
+    val res = Challenge3()
+    res.key.toChar shouldBe 'X'
+    res.decodedString shouldBe "Cooking MC's like a pound of bacon"
   }
 
   "Challenge 4" should "find the correct string" in {
