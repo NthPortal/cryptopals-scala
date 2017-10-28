@@ -1,12 +1,16 @@
 package com.nthportal.cryptopals.challenges
 
 package object set1 {
-  private[set1] val printableChars = ' ' to '~'
+  private val printableChars = ' ' to '~'
+  private val whitespaceChars = Set('\n', '\r', '\t')
 
   private[set1] def scoreBytes(bytes: Array[Byte]): Int = {
     val chars = bytes.map(_.toChar)
-    scoreChars(chars)
+    if (!chars.forall(isPrintable)) -1
+    else scoreChars(chars)
   }
+
+  private def isPrintable(c: Char): Boolean = (printableChars contains c) || (whitespaceChars contains c)
 
   private def scoreChars(chars: Array[Char]): Int = {
     chars.iterator
