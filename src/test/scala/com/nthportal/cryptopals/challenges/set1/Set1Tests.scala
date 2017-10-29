@@ -1,8 +1,7 @@
-package com.nthportal.cryptopals.challenges.set1
+package com.nthportal.cryptopals.challenges
+package set1
 
-import org.scalatest.{FlatSpec, Matchers}
-
-class Set1Tests extends FlatSpec with Matchers {
+class Set1Tests extends SimpleSpec {
   "Challenge 1" should "convert hex to base64" in {
     Challenge1() shouldBe "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t"
   }
