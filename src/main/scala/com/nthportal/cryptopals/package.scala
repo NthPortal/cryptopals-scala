@@ -1,6 +1,8 @@
 package com.nthportal
 
 import java.util.Base64
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 import javax.xml.bind.DatatypeConverter
 
 import org.apache.commons.codec.binary.Hex
@@ -42,5 +44,26 @@ package object cryptopals {
         .toArray
     }
   }
+
+  /* Utilities */
+
+  val AESBlockSize = 16
+  val YellowSubmarineKey: Array[Byte] = "YELLOW SUBMARINE".charsToBytes
+
+  def decryptECB(ciphertext: Array[Byte], key: Array[Byte], padding: Boolean = true): Array[Byte] = {
+    val cipher = Cipher.getInstance("AES/ECB/" + paddingType(padding))
+    val secretKey = new SecretKeySpec(key, "AES")
+    cipher.init(Cipher.DECRYPT_MODE, secretKey)
+    cipher.doFinal(ciphertext)
+  }
+
+  def encryptECB(plaintext: Array[Byte], key: Array[Byte], padding: Boolean = true): Array[Byte] = {
+    val cipher = Cipher.getInstance("AES/ECB/" + paddingType(padding))
+    val secretKey = new SecretKeySpec(key, "AES")
+    cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+    cipher.doFinal(plaintext)
+  }
+
+  private def paddingType(padding: Boolean): String = if (padding) "PKCS5Padding" else "NoPadding"
 
 }
