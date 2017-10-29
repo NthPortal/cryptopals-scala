@@ -11,7 +11,7 @@ object Challenge6 extends Challenge {
     val keyLengths = (2 to 40).iterator
       .map(len => (len, normalizedHammingDistance(bytes, len)))
       .toSeq
-      .sortBy(_._2) // possibly reverse ordering
+      .sortBy(_._2)
       .map(_._1)
 
     val keys = for {
