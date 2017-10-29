@@ -44,15 +44,12 @@ package object set1 {
   private[set1] final case class ScoredByte(byte: Byte, score: Int)
 
   private[set1] final case class ScoredString(hexString: String, key: Byte, score: Int) {
-    def decodedString: String = (hexString.hexToBytes ^ key).map(_.toChar).mkString
+    def decodedString: String = (hexString.hexToBytes ^ key).toCharString
   }
 
   /* Repeating-key XOR */
   private[set1] def repeatingKeyXor(text: String, key: String): Array[Byte] = {
-    val bytes = text.iterator
-      .map(_.toByte)
-      .toArray
-    repeatingKeyXor(bytes, key)
+    repeatingKeyXor(text.charsToBytes, key)
   }
 
   private[set1] def repeatingKeyXor(bytes: Array[Byte], key: String): Array[Byte] = {

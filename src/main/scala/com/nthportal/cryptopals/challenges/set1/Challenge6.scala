@@ -21,7 +21,7 @@ object Challenge6 extends Challenge {
 
     // Try first key
     val key = keys.next()
-    (key, repeatingKeyXor(bytes, key).map(_.toChar).mkString)
+    (key, repeatingKeyXor(bytes, key).toCharString)
   }
 
   private def normalizedHammingDistance(bytes: Array[Byte], keyLength: Int): Double = {
