@@ -2,7 +2,8 @@ package com.nthportal.cryptopals
 package challenges
 
 package object set1 {
-  private val printableChars = ' ' to '~'
+  /* Byte Scoring */
+  private[set1] val printableChars = ' ' to '~'
   private val whitespaceChars = Set('\n', '\r', '\t')
 
   private[set1] def findByteKey(hexString: String, possibleKeys: Seq[Byte]): Option[ScoredString] = {
@@ -45,4 +46,34 @@ package object set1 {
   private[set1] final case class ScoredString(hexString: String, key: Byte, score: Int) {
     def decodedString: String = (hexString.hexToBytes ^ key).map(_.toChar).mkString
   }
+
+  /* Repeating-key XOR */
+  private[set1] def repeatingKeyXor(text: String, key: String): Array[Byte] = {
+    val bytes = text.iterator
+      .map(_.toByte)
+      .toArray
+    repeatingKeyXor(bytes, key)
+  }
+
+  private[set1] def repeatingKeyXor(bytes: Array[Byte], key: String): Array[Byte] = {
+    bytes.iterator
+      .zipWithIndex
+      .map({ case (byte, i) => (byte ^ key.charAt(i % key.length).toByte).toByte })
+      .toArray
+  }
+
+  /* Hamming Distance */
+  private[set1] def hammingDistance(s1: String, s2: String): Int = {
+    require(s1.length == s2.length, "Strings must be the same length")
+    hammingDistance(s1.map(_.toByte), s2.map(_.toByte))
+  }
+
+  private[set1] def hammingDistance(s1: Seq[Byte], s2: Seq[Byte]): Int = {
+    require(s1.length == s2.length, "Byte sequences must be the same length")
+    s1.iterator.zip(s2.iterator)
+      .map({ case (b1, b2) => hammingDistance(b1, b2) })
+      .sum
+  }
+
+  private def hammingDistance(a: Byte, b: Byte): Int = java.lang.Integer.bitCount(a ^ b)
 }
